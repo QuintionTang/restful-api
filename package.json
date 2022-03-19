@@ -1,0 +1,30 @@
+{
+  "name": "restful-api",
+  "version": "1.0.0",
+  "description": "一个 node.js 的RESTFUL API服务",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node ./src/index.js",
+    "dev": "nodemon --trace-warnings ./src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "node.js",
+    "rest api",
+    "fastify",
+    "swagger"
+  ],
+  "author": "Quintion <QuintionTang@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/QuintionTang/restful-api.git"
+  },
+  "dependencies": {
+    "boom": "^7.3.0",
+    "fastify": "^3.27.4",
+    "fastify-swagger": "^5.0.0",
+    "mongoose": "^6.2.7",
+    "nodemon": "^2.0.15"
+  }
+}
