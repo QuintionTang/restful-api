@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const routes = require("./routes");
 const swagger = require("./config/swagger");
+const path = require("path");
 
 // 连接数据库
 mongoose
@@ -12,7 +13,15 @@ const fastify = require("fastify")({
     logger: true,
 });
 
-fastify.register(require("fastify-swagger"), swagger.options);
+fastify.register(require("fastify-swagger"), {
+    ...swagger.options,
+    specification: {
+        path: path.join(__dirname, "./docs", "api.yaml"),
+        postProcessor: function (swaggerObject) {
+            return swaggerObject;
+        },
+    },
+});
 
 routes.forEach((route, index) => {
     fastify.route(route);

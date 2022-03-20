@@ -1,0 +1,159 @@
+openapi: 3.0.1
+info:
+    contact:
+        email: QuintionTang@gmail.com
+        name: API support
+        url: https://www.devpoint.cn/
+    description: 这是一个关于咖啡种类的 API。
+    title: Coffee Restful API
+    version: 1.0.0
+servers:
+    - description: Main server
+      url: http://localhost:8100/api/v1
+paths:
+    /coffees:
+        get:
+            operationId: coffeesGET
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/Coffee"
+                                type: array
+                                x-content-type: application/json
+                    description: 获取成功
+            description: 获取咖啡种类列表
+            summary: 获取所有的咖啡种类列表
+            tags:
+                - Coffees
+        post:
+            operationId: coffeesPOST
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/CoffeeRequest"
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/Coffee"
+                                type: array
+                                x-content-type: application/json
+                    description: 创建成功
+            description: 增加新的咖啡种类
+            summary: 创建新的咖啡种类
+            tags:
+                - Coffees
+    /coffees/{id}:
+        get:
+            operationId: coffeesIdGET
+            parameters:
+                - description: 咖啡种类id
+                  explode: false
+                  in: path
+                  name: id
+                  required: true
+                  schema:
+                      type: string
+                  style: simple
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Coffee"
+                    description: 获取详情成功
+            description: 通过id获取咖啡种类详情
+            summary: 获取咖啡种类详情
+            tags:
+                - Coffees
+        delete:
+            operationId: coffeesIdDELETE
+            parameters:
+                - description: 咖啡种类id
+                  explode: false
+                  in: path
+                  name: id
+                  required: true
+                  schema:
+                      type: string
+                  style: simple
+            responses:
+                "204":
+                    description: 删除成功
+            description: 通过id删除咖啡种类详情
+            summary: 删除咖啡种类详情
+            tags:
+                - Coffees
+        put:
+            operationId: coffeesIdPUT
+            parameters:
+                - description: 咖啡种类id
+                  explode: false
+                  in: path
+                  name: id
+                  required: true
+                  schema:
+                      type: string
+                  style: simple
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/CoffeeRequest"
+            responses:
+                "201":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Coffee"
+                    description: 更新成功
+            description: 通过id 更新咖啡种类详情
+            summary: 更新咖啡种类详情
+            tags:
+                - Coffees
+
+components:
+    schemas:
+        Coffee:
+            example:
+                _id: id
+                title: title
+                ratio: ratio
+                cup: cup
+                description: description
+            properties:
+                _id:
+                    maxLength: 24
+                    minLength: 24
+                    type: string
+                title:
+                    type: string
+                ratio:
+                    type: string
+                cup:
+                    type: string
+                description:
+                    type: string
+            type: object
+        CoffeeRequest:
+            example:
+                title: "Red Eye"
+                ratio: "1 shot of espresso"
+                cup: "8 oz. Coffee Mug"
+                description: description
+            properties:
+                title:
+                    type: string
+                ratio:
+                    type: string
+                cup:
+                    type: string
+                description:
+                    type: string
+            type: object
